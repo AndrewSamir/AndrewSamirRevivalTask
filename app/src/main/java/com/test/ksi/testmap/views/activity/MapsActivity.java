@@ -34,8 +34,6 @@ import com.test.ksi.testmap.retorfitconfig.HandleCalls;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.data;
-import static android.R.attr.taskAffinity;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, HandleRetrofitResp, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -159,7 +157,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             HandleCalls.getInstance(this).setonRespnseSucess(this);
-            HandleCalls.getInstance(this).callGetGooglePlaces("test", mCurrentLocation.getLatitude() + "," + mCurrentLocation.getLongitude(), "10");
+            HandleCalls.getInstance(this).callGetGooglePlaces("test", mCurrentLocation.getLatitude() + "," + mCurrentLocation.getLongitude(), "20");
         }
 
 
