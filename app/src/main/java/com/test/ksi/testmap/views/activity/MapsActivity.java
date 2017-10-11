@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.test.ksi.testmap.R;
+import com.test.ksi.testmap.adapter.ViewPagerAdapter;
 import com.test.ksi.testmap.interfaces.HandleRetrofitResp;
 import com.test.ksi.testmap.models.googlePlacesApis.ModelGooglePlacesApis;
 import com.test.ksi.testmap.models.googlePlacesApis.Results;
@@ -33,13 +35,21 @@ import com.test.ksi.testmap.retorfitconfig.HandleCalls;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, HandleRetrofitResp, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    @Bind(R.id.vpContent)
+    ViewPager vpContent;
+
     private GoogleMap mMap;
 
     List<Marker> markers;
+    ViewPagerAdapter adapter;
 
     //google maps
     private GoogleApiClient mGoogleApiClient;
@@ -51,7 +61,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
+        ButterKnife.bind(this);
         initCurrentLocation();
+        initViewPager();
 
 
     }
@@ -199,5 +211,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    private void initViewPager() {
+
+        ArrayList<Results> mItems = new ArrayList<>();
+        Results slid;
+
+        slid = new Results();
+        slid.setName("dfddsa");
+        //   slid.setImg(R.drawable.howitworksstudent);
+        mItems.add(slid);
+
+        slid = new Results();
+        slid.setName("dfddsa");
+        mItems.add(slid);
+
+        slid = new Results();
+        slid.setName("dfddsa");
+        mItems.add(slid);
+
+        adapter = new ViewPagerAdapter(MapsActivity.this, mItems, vpContent);
+        vpContent.setAdapter(adapter);
+        vpContent.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+//                vpImages.getChildCount();
+
+                Random rnd = new Random();
+                // vp_images.setPageTransformer(true, (ViewPager.PageTransformer) new AccordionTransformer());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 }
